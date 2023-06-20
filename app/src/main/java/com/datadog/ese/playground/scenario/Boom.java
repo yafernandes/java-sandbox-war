@@ -1,4 +1,4 @@
-package com.datadog.ese.sandbox;
+package com.datadog.ese.playground.scenario;
 
 import java.io.IOException;
 
@@ -8,20 +8,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.logging.log4j.LogManager;
 import org.slf4j.LoggerFactory;
 
-@WebServlet("/servletAPI4") 
-public class Servlet4 extends HttpServlet {
+@WebServlet("/boom")
+public class Boom extends HttpServlet {
 
-  final static org.slf4j.Logger slf4jLogger = LoggerFactory.getLogger("sandbox");
-  final static org.apache.logging.log4j.Logger log4j2Logger = LogManager.getLogger("sandbox");
+  final static org.slf4j.Logger logger = LoggerFactory.getLogger("sandbox");
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     resp.setContentType("text/html");
-    slf4jLogger.info("Logging with SLF4J");
-    log4j2Logger.info("Logging with log4j2");
+    try {
+      System.out.println(5 / 0);
+    } catch (RuntimeException e) {
+      logger.error(e.getMessage(), e);
+    }
     resp.getWriter().println("<h1>Hello world!</h1>");
   }
 

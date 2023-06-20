@@ -1,4 +1,4 @@
-package com.datadog.ese.sandbox;
+package com.datadog.ese.playground;
 
 import java.io.IOException;
 
