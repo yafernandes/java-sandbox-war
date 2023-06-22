@@ -35,5 +35,5 @@ dependencies {
 }
 
 war {
-    archiveFileName = 'playground.war'
+    archiveFileName = 'sandbox.war'
 }

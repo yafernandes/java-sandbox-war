@@ -1,4 +1,4 @@
-package com.datadog.ese.playground.scenario;
+package com.datadog.ese.sandbox.scenario;
 
 import java.io.IOException;
 import java.util.HashMap;

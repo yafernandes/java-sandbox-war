@@ -1,4 +1,4 @@
-package com.datadog.ese.playground.scenario;
+package com.datadog.ese.sandbox.scenario;
 
 import java.io.IOException;
 
@@ -10,20 +10,39 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.LoggerFactory;
 
-@WebServlet("/boom")
-public class Boom extends HttpServlet {
+@WebServlet("/concurrency")
+public class Concurrency extends HttpServlet {
 
   final static org.slf4j.Logger logger = LoggerFactory.getLogger("sandbox");
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     resp.setContentType("text/html");
+
+    new Thread(() -> sub(this)).start();
+    logger.info("Waiting...");
     try {
-      System.out.println(5 / 0);
-    } catch (RuntimeException e) {
+      synchronized (this) {
+        wait();
+      }
+    } catch (InterruptedException e) {
       logger.error(e.getMessage(), e);
     }
+    logger.info("I am up...");
+
     resp.getWriter().println("<h1>Hello world!</h1>");
+  }
+
+  private void sub(Object o) {
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      logger.error(e.getMessage(), e);
+    }
+    logger.info("Notifing...");
+    synchronized (o) {
+      o.notify();
+    }
   }
 
 }

@@ -1,4 +1,4 @@
-package com.datadog.ese.playground;
+package com.datadog.ese.sandbox;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.slf4j.LoggerFactory;
 
 @WebFilter("/*")
-public class PlaygroundFilter implements Filter {
+public class SimpleFilter implements Filter {
 
     final static org.slf4j.Logger slf4jLogger = LoggerFactory.getLogger("sandbox");
     final static org.apache.logging.log4j.Logger log4j2Logger = LogManager.getLogger("sandbox");
